@@ -1,0 +1,21 @@
+<div class="modal-overlay" id="cmt-overlay">
+  <div class="modal-box">
+    <div class="modal-title">Новая заявка</div>
+    <label class="modal-field-label" for="cmt-obj-sel">Объект</label>
+    <select class="modal-select" id="cmt-obj-sel"></select>
+    <label class="modal-field-label" for="cmt-type-sel">Тип обращения</label>
+    <select class="modal-select" id="cmt-type-sel">
+      <option value="issue">Проблема / дефект</option>
+      <option value="request">Заявка на ремонт</option>
+      <option value="info">Информационный запрос</option>
+      <option value="other">Другое</option>
+    </select>
+    <label class="modal-field-label" for="cmt-text">Описание</label>
+    <textarea class="modal-input" id="cmt-text" rows="3" placeholder="Опишите проблему или запрос…"></textarea>
+    <div class="modal-error" id="cmt-err"></div>
+    <div class="modal-actions">
+      <button class="btn-modal-sec" onclick="closeCommentModal()">Отмена</button>
+      <button class="btn-modal-acc" onclick="submitComment()">Отправить</button>
+    </div>
+  </div>
+</div>

@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>ГИС — Дорожная инфраструктура</title>
+  <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css">
+  <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
+  <link rel="stylesheet" href="/css/variables.css">
+  <link rel="stylesheet" href="/css/auth.css">
+  <link rel="stylesheet" href="/css/layout.css">
+  <link rel="stylesheet" href="/css/sidebar.css">
+  <link rel="stylesheet" href="/css/map.css">
+</head>
+<body>
+
+  <div id="slot-login"></div>
+  <div id="slot-register"></div>
+
+  <div id="app">
+    <div class="topbar">
+      <div class="topbar-logo">
+        <span class="topbar-logo-name">ГИС Дороги</span>
+      </div>
+      <div class="topbar-sep"></div>
+      <span class="topbar-project" id="topbar-project">Дорожная инфраструктура</span>
+      <div class="user-chip" onclick="doLogout()" title="Нажмите для выхода">
+        <div class="user-avatar" id="user-avatar">А</div>
+        <div>
+          <div class="user-name" id="user-fullname">—</div>
+          <div class="user-role" id="user-role-lbl">выйти</div>
+        </div>
+      </div>
+    </div>
+
+    <div class="app-body">
+      <div id="slot-sidebar"></div>
+      <div id="slot-map"></div>
+    </div>
+  </div>
+
+  <div id="toast"></div>
+  <div id="slot-modal"></div>
+
+  <script src="/js/app.js"></script>
+  <script src="/js/auth.js"></script>
+  <script src="/js/map.js"></script>
+  <script src="/js/kml.js"></script>
+  <script src="/js/admin.js"></script>
+  <script src="/js/comments.js"></script>
+
+  <script>
+    window.currentUser = null;
+
+    async function loadPartial(url, slotId) {
+      const r    = await fetch(url);
+      const html = await r.text();
+      document.getElementById(slotId).innerHTML = html;
+    }
+
+    Promise.all([
+      loadPartial('/pages/login.html',         'slot-login'),
+      loadPartial('/pages/register.html',      'slot-register'),
+      loadPartial('/pages/sidebar.html',       'slot-sidebar'),
+      loadPartial('/pages/mapview.html',       'slot-map'),
+      loadPartial('/pages/modal-comment.html', 'slot-modal'),
+    ]).then(async () => {
+      try {
+        const r = await fetch('/api/auth/me');
+        if (r.ok) { window.currentUser = await r.json(); enterApp(); }
+        else showScreen('login');
+      } catch { showScreen('login'); }
+    });
+  </script>
+
+</body>
+</html>

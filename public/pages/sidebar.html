@@ -1,0 +1,105 @@
+<div class="sidebar">
+  <div class="sidebar-tabs">
+    <button class="sidebar-tab on" id="t-objects" onclick="setTab('objects')">Объекты</button>
+    <button class="sidebar-tab"    id="t-legend"  onclick="setTab('legend')">Легенда</button>
+    <button class="sidebar-tab"    id="t-role"    onclick="setTab('role')">Панель</button>
+  </div>
+  <div class="sidebar-body">
+
+    <div class="panel on" id="p-objects">
+      <div class="objects-header">
+        <span class="objects-header-title">Объекты</span>
+        <span class="objects-count" id="cnt">0</span>
+      </div>
+      <div class="filter-row">
+        <button class="filter-chip all on" id="f-all"    onclick="setFilter('all')">Все</button>
+        <button class="filter-chip open"   id="f-open"   onclick="setFilter('open')"><div class="filter-dot open"></div>Открыт</button>
+        <button class="filter-chip repair" id="f-repair" onclick="setFilter('repair')"><div class="filter-dot repair"></div>Ремонт</button>
+        <button class="filter-chip closed" id="f-closed" onclick="setFilter('closed')"><div class="filter-dot closed"></div>Закрыт</button>
+      </div>
+      <div id="obj-list">
+        <div class="empty-state">
+          <div class="empty-state-ico">🗺️</div>
+          <div class="empty-state-txt">Карта не загружена.<br>Администратор загружает KML-файл.</div>
+        </div>
+      </div>
+    </div>
+
+    <div class="panel" id="p-legend">
+      <div class="legend-block">
+        <div class="legend-title">Статусы объектов</div>
+        <div class="legend-item"><div class="legend-dot" style="background:var(--green);box-shadow:0 0 6px rgba(38,217,127,.5)"></div><div><div class="legend-label">Открыт</div><div class="legend-desc">Работает в штатном режиме</div></div></div>
+        <div class="legend-item"><div class="legend-dot" style="background:var(--yellow);box-shadow:0 0 6px rgba(245,192,46,.5)"></div><div><div class="legend-label">На ремонте</div><div class="legend-desc">Ведутся ремонтные работы</div></div></div>
+        <div class="legend-item"><div class="legend-dot" style="background:var(--red);box-shadow:0 0 6px rgba(239,70,70,.5)"></div><div><div class="legend-label">Закрыт</div><div class="legend-desc">Выведен из эксплуатации</div></div></div>
+      </div>
+      <div class="legend-block legend-sep">
+        <div class="legend-title">Типы объектов</div>
+        <div class="legend-item"><div class="legend-dot" style="background:#4b7cf6"></div><div class="legend-label">Дорога</div></div>
+        <div class="legend-item"><div class="legend-dot" style="background:#a78bfa"></div><div class="legend-label">Мост</div></div>
+        <div class="legend-item"><div class="legend-dot" style="background:#34d399"></div><div class="legend-label">Знак</div></div>
+        <div class="legend-item"><div class="legend-dot" style="background:#fbbf24"></div><div class="legend-label">Освещение</div></div>
+      </div>
+      <div class="stats-grid">
+        <div class="stat-card"><div class="stat-label">Всего</div><div class="stat-value" id="s-total">0</div><div class="stat-sub">объектов</div></div>
+        <div class="stat-card"><div class="stat-label" style="color:var(--green)">Открыто</div><div class="stat-value" id="s-open" style="color:var(--green)">0</div><div class="stat-sub">объектов</div></div>
+        <div class="stat-card"><div class="stat-label" style="color:var(--yellow)">Ремонт</div><div class="stat-value" id="s-repair" style="color:var(--yellow)">0</div><div class="stat-sub">объектов</div></div>
+        <div class="stat-card"><div class="stat-label" style="color:var(--red)">Закрыто</div><div class="stat-value" id="s-closed" style="color:var(--red)">0</div><div class="stat-sub">объектов</div></div>
+      </div>
+    </div>
+
+    <div class="panel" id="p-role">
+
+      <div id="rp-admin" style="display:none">
+        <div class="panel-section-title">Загрузка карты (KML)</div>
+        <div class="upload-zone" id="upload-zone"
+          onclick="document.getElementById('kml-inp').click()"
+          ondragover="event.preventDefault();this.classList.add('over')"
+          ondragleave="this.classList.remove('over')"
+          ondrop="onDrop(event)">
+          <div class="upload-zone-icon"><svg viewBox="0 0 18 18" fill="currentColor"><path d="M9 1L5 5h3v7h2V5h3L9 1zM3 14v2h12v-2H3z"/></svg></div>
+          <div class="upload-zone-title">Загрузить KML-файл</div>
+          <div class="upload-zone-sub">Перетащите или <span>выберите файл</span></div>
+        </div>
+        <input type="file" id="kml-inp" accept=".kml,.xml" style="display:none" onchange="onFileInput(this)">
+        <div class="log-section">
+          <div class="log-title">Журнал загрузки</div>
+          <div id="log-list"><div class="log-item"><span class="log-item-ico" style="color:var(--text3)">ℹ</span><span class="log-item-txt" style="color:var(--text3)">Файлы ещё не загружались</span></div></div>
+        </div>
+        <div class="log-section">
+          <div class="log-title">История загрузок</div>
+          <div id="upload-history"><div style="font-size:11.5px;color:var(--text3);padding:4px 0">Загрузок нет</div></div>
+        </div>
+        <div class="log-section">
+          <div class="log-title">Пользователи системы</div>
+          <div class="users-table-wrap">
+            <table class="users-table">
+              <thead><tr><th>Имя</th><th>Логин</th><th>Роль</th><th></th></tr></thead>
+              <tbody id="users-tbody"></tbody>
+            </table>
+          </div>
+        </div>
+        <div class="log-section">
+          <div class="log-title">Заявки заказчиков</div>
+          <div id="admin-comments-list"><div style="font-size:11.5px;color:var(--text3);padding:4px 0">Загрузка…</div></div>
+        </div>
+      </div>
+
+      <div id="rp-user" style="display:none">
+        <div class="readonly-notice">
+          <div class="readonly-notice-ico">👁</div>
+          <div class="readonly-notice-txt"><strong style="color:var(--text)">Режим просмотра</strong><br>Вы можете просматривать карту и нажимать на объекты для получения информации.</div>
+        </div>
+      </div>
+
+      <div id="rp-customer" style="display:none">
+        <div class="panel-section-title">Мои заявки</div>
+        <button class="add-comment-btn" onclick="openCommentModal(null)">
+          <svg viewBox="0 0 14 14" fill="currentColor"><path d="M7 1v12M1 7h12"/></svg>
+          Новая заявка
+        </button>
+        <div id="cmt-list"></div>
+      </div>
+
+    </div>
+  </div>
+</div>

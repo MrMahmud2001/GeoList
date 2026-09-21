@@ -1,0 +1,108 @@
+.map-wrap {
+  flex: 1;
+  position: relative;
+  overflow: hidden;
+}
+
+#map {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+}
+
+.leaflet-control-attribution { display: none !important; }
+
+.leaflet-popup-content-wrapper {
+  background: var(--bg2) !important; border: 1px solid var(--border2) !important;
+  border-radius: var(--r) !important; box-shadow: 0 8px 30px rgba(0,0,0,.6) !important; color: var(--text) !important;
+}
+.leaflet-popup-tip { background: var(--bg2) !important; }
+.leaflet-popup-close-button { color: var(--text3) !important; }
+.leaflet-popup-content { margin: 0 !important; }
+
+.leaflet-control-zoom { border: 1px solid var(--border2) !important; border-radius: var(--r) !important; overflow: hidden; }
+.leaflet-control-zoom a { background: var(--bg2) !important; color: var(--text) !important; border-color: var(--border) !important; }
+.leaflet-control-zoom a:hover { background: var(--surface) !important; }
+
+.map-hud { position: absolute; top: 13px; right: 13px; z-index: 400; pointer-events: none; }
+.hud-card { background: var(--bg2); border: 1px solid var(--border2); border-radius: var(--r); padding: 10px 13px; }
+.hud-title { font-size: 10px; text-transform: uppercase; letter-spacing: .5px; color: var(--text3); margin-bottom: 7px; }
+.hud-row   { display: flex; align-items: center; gap: 7px; margin-bottom: 5px; }
+.hud-row:last-child { margin: 0; }
+.hud-dot   { width: 9px; height: 9px; border-radius: 50%; }
+.hud-label { font-size: 11.5px; color: var(--text2); }
+
+.detail-card {
+  position: absolute; bottom: 13px; left: 13px; width: 272px;
+  background: var(--bg2); border: 1px solid var(--border2);
+  border-radius: var(--r2); z-index: 400; display: none;
+}
+.detail-card.on { display: block; }
+
+.detail-head {
+  padding: 13px 15px; border-bottom: 1px solid var(--border);
+  display: flex; align-items: flex-start; justify-content: space-between;
+}
+.detail-name  { font-size: 13.5px; font-weight: 600; color: var(--text); margin-bottom: 5px; }
+.detail-close { background: none; border: none; color: var(--text3); cursor: pointer; font-size: 15px; line-height: 1; padding: 0; }
+.detail-close:hover { color: var(--text); }
+
+.detail-status-badge { display: inline-flex; align-items: center; gap: 4px; padding: 3px 9px; border-radius: 20px; font-size: 11px; font-weight: 500; }
+.detail-status-badge.open    { background: var(--green-bg);  color: var(--green); }
+.detail-status-badge.repair  { background: var(--yellow-bg); color: var(--yellow); }
+.detail-status-badge.closed  { background: var(--red-bg);    color: var(--red); }
+.detail-status-badge.unknown { background: var(--blue-bg);   color: var(--accent); }
+
+.detail-body { padding: 13px 15px; }
+.detail-row  { display: flex; justify-content: space-between; margin-bottom: 7px; font-size: 12px; }
+.detail-key  { color: var(--text3); }
+.detail-val  { color: var(--text2); font-weight: 500; text-align: right; max-width: 56%; }
+
+.detail-comment-btn {
+  margin: 0 15px 13px; display: flex; align-items: center; justify-content: center; gap: 6px;
+  background: var(--surface); border: 1px dashed var(--border2); border-radius: var(--r);
+  padding: 8px; font-size: 12px; color: var(--accent); cursor: pointer;
+  font-family: var(--font); transition: all .15s; width: calc(100% - 30px);
+}
+.detail-comment-btn:hover { background: var(--surface2); }
+
+#toast {
+  position: fixed; bottom: 22px; right: 22px;
+  background: var(--bg2); border: 1px solid var(--border2); border-radius: var(--r);
+  padding: 11px 17px; font-size: 13px; color: var(--text);
+  z-index: 9998; transform: translateY(12px); opacity: 0;
+  transition: all .25s; max-width: 300px; pointer-events: none;
+}
+#toast.on { transform: translateY(0); opacity: 1; }
+#toast.ok { border-color: rgba(38,217,127,.4); }
+#toast.er { border-color: rgba(239,70,70,.4); }
+
+.modal-overlay {
+  position: fixed; inset: 0; z-index: 9000;
+  background: rgba(0,0,0,.65); display: none;
+  align-items: center; justify-content: center;
+}
+.modal-overlay.on { display: flex; }
+.modal-box { background: var(--bg2); border: 1px solid var(--border2); border-radius: var(--r2); padding: 26px 30px; width: 420px; max-width: 90vw; }
+.modal-title { font-size: 17px; font-weight: 600; letter-spacing: -.3px; margin-bottom: 18px; }
+.modal-field-label { display: block; font-size: 11px; font-weight: 500; color: var(--text2); text-transform: uppercase; letter-spacing: .6px; margin-bottom: 5px; }
+.modal-input, .modal-select {
+  width: 100%; background: var(--bg3); border: 1px solid var(--border); border-radius: var(--r);
+  padding: 10px 14px; font-size: 14px; color: var(--text); margin-bottom: 12px;
+  outline: none; font-family: var(--font); transition: border-color .2s;
+}
+.modal-input:focus { border-color: var(--accent); }
+.modal-select {
+  cursor: pointer; appearance: none;
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='11' height='7' viewBox='0 0 11 7'%3E%3Cpath d='M1 1l4.5 4.5L10 1' stroke='%238892aa' stroke-width='1.5' fill='none' stroke-linecap='round'/%3E%3C/svg%3E");
+  background-repeat: no-repeat; background-position: right 14px center;
+}
+.modal-select option { background: var(--bg3); }
+textarea.modal-input { resize: vertical; }
+.modal-error { background: var(--red-bg); border: 1px solid rgba(239,70,70,.3); border-radius: var(--r); padding: 8px 12px; font-size: 13px; color: var(--red); margin-top: 8px; display: none; }
+.modal-actions { display: flex; gap: 8px; margin-top: 16px; justify-content: flex-end; }
+.btn-modal-sec { background: var(--surface); border: 1px solid var(--border2); border-radius: var(--r); padding: 8px 17px; font-size: 13px; font-weight: 500; color: var(--text2); cursor: pointer; font-family: var(--font); }
+.btn-modal-sec:hover { background: var(--surface2); }
+.btn-modal-acc { background: var(--accent); border: none; border-radius: var(--r); padding: 8px 17px; font-size: 13px; font-weight: 500; color: #fff; cursor: pointer; font-family: var(--font); }
+.btn-modal-acc:hover { background: var(--accent2); }

@@ -1,0 +1,25 @@
+<div class="map-wrap">
+  <div id="map"></div>
+  <div class="map-hud">
+    <div class="hud-card">
+      <div class="hud-title">Статусы</div>
+      <div class="hud-row"><div class="hud-dot" style="background:var(--green)"></div><span class="hud-label">Открыт</span></div>
+      <div class="hud-row"><div class="hud-dot" style="background:var(--yellow)"></div><span class="hud-label">На ремонте</span></div>
+      <div class="hud-row"><div class="hud-dot" style="background:var(--red)"></div><span class="hud-label">Закрыт</span></div>
+    </div>
+  </div>
+  <div class="detail-card" id="detail-card">
+    <div class="detail-head">
+      <div>
+        <div class="detail-name" id="det-name">—</div>
+        <span class="detail-status-badge unknown" id="det-badge">—</span>
+      </div>
+      <button class="detail-close" onclick="closeDetail()">✕</button>
+    </div>
+    <div class="detail-body" id="det-body"></div>
+    <button class="detail-comment-btn" id="det-comment-btn" onclick="openCommentModal(window.currentObjName)" style="display:none">
+      <svg width="13" height="13" viewBox="0 0 14 14" fill="currentColor"><path d="M7 1v12M1 7h12"/></svg>
+      Оставить заявку по этому объекту
+    </button>
+  </div>
+</div>

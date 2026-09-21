@@ -1,0 +1,25 @@
+<div class="screen hidden" id="screen-register">
+  <div class="auth-card">
+    <div class="auth-logo">
+      <div class="auth-logo-icon"><svg viewBox="0 0 20 20"><path d="M10 2C5.6 2 2 5.6 2 10s3.6 8 8 8 8-3.6 8-8-3.6-8-8-8zm0 2.8l2.4 4.8H7.6L10 4.8zM5.2 11h9.6l-2.4 4H7.6l-2.4-4z"/></svg></div>
+      <span class="auth-logo-name">ГИС Дороги</span>
+    </div>
+    <div class="auth-title">Регистрация</div>
+    <div class="auth-sub">Создайте аккаунт для доступа к системе</div>
+    <div class="msg-error" id="reg-err"></div>
+    <div class="msg-ok"    id="reg-ok"></div>
+    <label class="field-label" for="reg-name">Полное имя</label>
+    <input class="field-input" id="reg-name" type="text" placeholder="Иванов Иван Иванович" autocomplete="name">
+    <label class="field-label" for="reg-login">Логин</label>
+    <input class="field-input" id="reg-login" type="text" placeholder="Минимум 3 символа" autocomplete="username">
+    <label class="field-label" for="reg-pass">Пароль</label>
+    <input class="field-input" id="reg-pass" type="password" placeholder="Минимум 6 символов" autocomplete="new-password">
+    <label class="field-label" for="reg-role">Роль</label>
+    <select class="field-select" id="reg-role">
+      <option value="user">Пользователь — просмотр карты</option>
+      <option value="customer">Заказчик — просмотр + заявки</option>
+    </select>
+    <button class="btn-auth btn-auth-primary" onclick="doRegister()">Зарегистрироваться</button>
+    <button class="btn-auth btn-auth-ghost" onclick="showScreen('login')">Уже есть аккаунт — войти</button>
+  </div>
+</div>

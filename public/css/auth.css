@@ -1,0 +1,60 @@
+.screen {
+  position: fixed; inset: 0; z-index: 9999;
+  background: var(--bg);
+  display: flex; align-items: center; justify-content: center;
+}
+.screen.hidden { display: none; }
+
+.auth-card {
+  background: var(--bg2);
+  border: 1px solid var(--border2);
+  border-radius: var(--r2);
+  padding: 40px 44px;
+  width: 420px; max-width: 94vw;
+}
+
+.auth-logo { display: flex; align-items: center; gap: 10px; margin-bottom: 24px; }
+.auth-logo-icon {
+  width: 38px; height: 38px; background: var(--accent);
+  border-radius: 10px; display: flex; align-items: center; justify-content: center; flex-shrink: 0;
+}
+.auth-logo-icon svg { width: 20px; height: 20px; fill: #fff; }
+.auth-logo-name { font-size: 17px; font-weight: 600; letter-spacing: -.3px; }
+
+.auth-title { font-size: 21px; font-weight: 600; margin-bottom: 5px; }
+.auth-sub   { font-size: 13px; color: var(--text2); margin-bottom: 22px; line-height: 1.6; }
+
+.field-label {
+  display: block; font-size: 11px; font-weight: 500;
+  color: var(--text2); text-transform: uppercase; letter-spacing: .6px; margin-bottom: 5px;
+}
+
+.field-input, .field-select {
+  width: 100%; background: var(--bg3); border: 1px solid var(--border);
+  border-radius: var(--r); padding: 10px 14px; font-size: 14px; color: var(--text);
+  margin-bottom: 13px; outline: none; font-family: var(--font); transition: border-color .2s;
+}
+.field-input:focus { border-color: var(--accent); }
+.field-select {
+  cursor: pointer; appearance: none;
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='11' height='7' viewBox='0 0 11 7'%3E%3Cpath d='M1 1l4.5 4.5L10 1' stroke='%238892aa' stroke-width='1.5' fill='none' stroke-linecap='round'/%3E%3C/svg%3E");
+  background-repeat: no-repeat; background-position: right 14px center;
+}
+.field-select option { background: var(--bg3); }
+
+.btn-auth {
+  display: block; width: 100%; border: none; border-radius: var(--r);
+  padding: 11px; font-size: 14px; font-weight: 500; color: #fff;
+  cursor: pointer; font-family: var(--font); transition: background .2s; margin-top: 5px;
+}
+.btn-auth-primary { background: var(--accent); }
+.btn-auth-primary:hover { background: var(--accent2); }
+.btn-auth-ghost { background: var(--surface); color: var(--text2); margin-top: 9px; }
+.btn-auth-ghost:hover { background: var(--surface2); color: var(--text); }
+
+.msg-error, .msg-ok {
+  border-radius: var(--r); padding: 10px 13px;
+  font-size: 13px; margin-bottom: 12px; display: none;
+}
+.msg-error { background: var(--red-bg); border: 1px solid rgba(239,70,70,.3); color: var(--red); }
+.msg-ok    { background: var(--green-bg); border: 1px solid rgba(38,217,127,.3); color: var(--green); }
